@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClimaVida - Sua Saúde em Sintonia com o Tempo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>🌤️ ClimaVida</h2>
+                <p>Sua saúde em sintonia com o tempo</p>
+            </div>
+
+            <div class="login-tabs">
+                <button class="login-tab active" onclick="switchLoginTab('login')">Entrar</button>
+                <button class="login-tab" onclick="switchLoginTab('register')">Cadastrar</button>
+            </div>
+
+            <!-- Formulário de Login -->
+            <div id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="loginEmail">E-mail</label>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Senha</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Sua senha" required>
+                </div>
+                <button type="button" class="btn" onclick="realizarLogin()">
+                    <svg class="icon" viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Entrar
+                </button>
+                <div class="forgot-password">
+                    <a href="#" onclick="showAlert('Funcionalidade em desenvolvimento', 'error')">Esqueci minha senha</a>
+                </div>
+            </div>
+
+            <!-- Formulário de Cadastro -->
+            <div id="registerForm" class="login-form hidden">
+                <div class="form-group">
+                    <label for="registerName">Nome Completo</label>
+                    <input type="text" id="registerName" class="form-control" placeholder="Seu nome completo" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerEmail">E-mail</label>
+                    <input type="email" id="registerEmail" class="form-control" placeholder="seu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Senha</label>
+                    <input type="password" id="registerPassword" class="form-control" placeholder="Mínimo 6 caracteres" required>
+                </div>
+                <div class="form-group">
+                    <label for="registerAge">Idade</label>
+                    <input type="number" id="registerAge" class="form-control" placeholder="Sua idade" min="1" max="120" required>
+                </div>
+                <button type="button" class="btn btn-success" onclick="realizarCadastro()">
+                    <svg class="icon" viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                    </svg>
+                    Criar Conta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aplicação Principal -->
+    <div id="appContent" class="app-content">
+        <div class="container">
+            <button class="logout-btn" onclick="realizarLogout()">
+                <svg class="icon" viewBox="0 0 24 24" width="16" height="16" style="fill: white;">
+                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.59L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                </svg>
+                Sair
+            </button>
+
+            <div class="header">
+                <h1>🌤️ ClimaVida</h1>
+                <p>Sua saúde em sintonia com o tempo em Garanhuns, PE</p>
+            </div>
+
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('perfil')">Meu Perfil</button>
+                <button class="tab" onclick="switchTab('recomendacoes')">Recomendações</button>
+                <button class="tab" onclick="switchTab('clima')">Clima Atual</button>
+            </div>
+
+            <!-- Tab Perfil -->
+            <div id="perfil" class="tab-content active">
+                <div class="main-grid">
+                    <div class="card">
+                        <h2>
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                            Dados Pessoais
+                        </h2>
+                        <form id="userForm">
+                            <div class="form-group">
+                                <label for="nome">Nome Completo</label>
+                                <input type="text" id="nome" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="idade">Idade</label>
+                                <input type="number" id="idade" class="form-control" min="1" max="120" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" class="form-control" required>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card">
+                        <h2>
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/>
+                            </svg>
+                            Condições de Saúde
+                        </h2>
+                        
+                        <h3 style="margin-bottom: 15px; color: #4a5568;">Doenças</h3>
+                        <div class="form-group">
+                            <label for="doencaNome">Nome da Doença</label>
+                            <input type="text" id="doencaNome" class="form-control" placeholder="Ex: Asma, Hipertensão...">
+                        </div>
+                        <div class="form-group">
+                            <label for="doencaTipo">Tipo</label>
+                            <select id="doencaTipo" class="form-control">
+                                <option value="respiratoria">Respiratória</option>
+                                <option value="cardiovascular">Cardiovascular</option>
+                                <option value="articular">Articular</option>
+                                <option value="dermatologica">Dermatológica</option>
+                                <option value="alergica">Alérgica</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="doencaSeveridade">Severidade</label>
+                            <select id="doencaSeveridade" class="form-control">
+                                <option value="leve">Leve</option>
+                                <option value="moderada">Moderada</option>
+                                <option value="severa">Severa</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="adicionarDoenca()">
+                            <svg class="icon" viewBox="0 0 24 24" width="16" height="16">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                            Adicionar Doença
+                        </button>
+                        
+                        <div id="doencasList" style="margin-top: 15px;"></div>
+
+                        <h3 style="margin: 25px 0 15px; color: #4a5568;">Alergias</h3>
+                        <div class="form-group">
+                            <label for="alergiaNome">Nome da Alergia</label>
+                            <input type="text" id="alergiaNome" class="form-control" placeholder="Ex: Pólen, Ácaros...">
+                        </div>
+                        <div class="form-group">
+                            <label for="alergiaTipo">Tipo</label>
+                            <select id="alergiaTipo" class="form-control">
+                                <option value="polen">Pólen</option>
+                                <option value="poeira">Poeira/Ácaros</option>
+                                <option value="umidade">Umidade</option>
+                                <option value="temperatura">Temperatura</option>
+                            </select>
+                        </div>
+                        <button type="button" class="btn btn-secondary" onclick="adicionarAlergia()">
+                            <svg class="icon" viewBox="0 0 24 24" width="16" height="16">
+                                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                            </svg>
+                            Adicionar Alergia
+                        </button>
+                        
+                        <div id="alergiasList" style="margin-top: 15px;"></div>
+                    </div>
+                </div>
+
+                <div class="card" style="text-align: center; margin-top: 20px;">
+                    <button type="button" class="btn" onclick="atualizarPerfil()" style="font-size: 1.1rem; padding: 16px 32px;">
+                        <svg class="icon" viewBox="0 0 24 24" width="20" height="20">
+                            <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+                        </svg>
+                        Atualizar Perfil
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tab Recomendações -->
+            <div id="recomendacoes" class="tab-content">
+                <div id="userProfile" class="card user-profile">
+                    <div class="profile-header">
+                        <div class="profile-avatar" id="userAvatar"></div>
+                        <div>
+                            <h3 id="userName"></h3>
+                            <p id="userInfo"></p>
+                        </div>
+                    </div>
+                    <div>
+                        <strong>Condições:</strong>
+                        <div id="userConditions"></div>
+                    </div>
+                </div>
+
+                <div class="card recommendations">
+                    <h2>
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                        Suas Recomendações Personalizadas
+                    </h2>
+                    <div id="recommendationsContent">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Carregando suas recomendações...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Clima -->
+            <div id="clima" class="tab-content">
+                <div class="card weather-card">
+                    <h2>
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"/>
+                        </svg>
+                        Clima Atual em Garanhuns, PE
+                    </h2>
+                    <div id="weatherContent">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Carregando dados meteorológicos...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="alertContainer"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

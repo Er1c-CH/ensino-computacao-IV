@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
@@ -12,6 +13,14 @@ app = FastAPI(
     title="Sistema de Recomendações de Saúde",
     description="API que cruza dados meteorológicos de Garanhuns com condições de saúde do usuário",
     version="1.0.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Configuração do banco de dados SQLite
